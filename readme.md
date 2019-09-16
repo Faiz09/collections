@@ -10,25 +10,26 @@ Helper functions for multidimensional arrays
     
     func main()  {
        p := []person{
-            {name: "Chris", age:  20},
-            {name: "Marrie", age:  28},
-            {name: "David", age:  20},
-            {name: "Dr", age:  100},
-            {name: "Brew", age:  2},
-            {name: "Chris", age:  30},
-            {name: "Bar", age:  130},
-           }
+            {name: "Dinesh", age:  28},
+            {name: "Gilf", age:  32},
+            {name: "Richard", age:  20},
+            {name: "Erlic", age:  58},
+            {name: "Bar", age:  25},
+            {name: "Dinesh", age:  28},
+        }
        
         c := Collection{p}
        
-        res := c.where("name", "Chris").where("age", 20).get().([]person)
+        res := c.Where("name", "Dinesh").Where("age", 28).get().([]person)
        
-        fmt.Printf("%+v\n", res)
-        fmt.Printf("%+T\n", res)
+        fmt.Println(res)
+        fmt.Println(c.Avg("age"))
+        fmt.Println(c.Exists("age", 1000))
     }
     
   
   output
   
-      [{name:Chris age:20}]
-      []collection.person
+      [{Dinesh 28} {Dinesh 28}]
+      31
+      false

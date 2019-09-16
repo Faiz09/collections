@@ -4,44 +4,33 @@ import (
 	"reflect"
 )
 
-func Where(ci collectionInterface, key string, value interface{}) interface{} {
+func Avg(ci collectionInterface, key string) interface{} {
 
 	if reflect.TypeOf(ci).Kind() != reflect.Slice {
 		panic("Not allowed for " + reflect.TypeOf(ci).Kind().String())
 	}
 
-	switch reflect.TypeOf(value).Kind() {
+	switch reflect.TypeOf(key).Kind() {
 	case reflect.String:
-		return whereString(ci, key, value.(string))
-	case reflect.Int:
-		return whereInt(ci, key, value.(int))
+		 return avgString(ci, key)
 	default:
-		panic("Value of type " + reflect.TypeOf(value).Kind().String() + " is not supported yet")
+		panic("Value of type " + reflect.TypeOf(key).Kind().String() + " is not supported yet")
 	}
 }
 
-func whereString(ci collectionInterface, key string, value string) interface{} {
-	slice := makeSlice(ci)
+func avgString(ci collectionInterface, key string) int {
+
+	sum := 0
 
 	for j:=0; j<reflect.ValueOf(ci).Len() ;j++  {
 
-		if reflect.ValueOf(ci).Index(j).FieldByName(key).String() == value {
-			slice = reflect.Append(slice, reflect.ValueOf(ci).Index(j))
+		if reflect.ValueOf(ci).Index(j).FieldByName(key).Kind() == reflect.Int64 {
+			sum += int(reflect.ValueOf(ci).Index(j).FieldByName(key).Int())
+		} else {
+			panic("Operation not supported for " + reflect.ValueOf(ci).Index(j).FieldByName(key).Kind().String() + " values")
 		}
 	}
 
-	return slice.Interface()
-}
+	return sum / reflect.ValueOf(ci).Len()
 
-func whereInt(ci collectionInterface, key string, value int) interface{} {
-	slice := makeSlice(ci)
-
-	for j:=0; j<reflect.ValueOf(ci).Len() ;j++  {
-
-		if reflect.ValueOf(ci).Index(j).FieldByName(key).Int() == int64(value) {
-			slice = reflect.Append(slice, reflect.ValueOf(ci).Index(j))
-		}
-	}
-
-	return slice.Interface()
 }

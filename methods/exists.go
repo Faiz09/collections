@@ -4,33 +4,42 @@ import (
 	"reflect"
 )
 
-func Avg(ci collectionInterface, key string) interface{} {
+func Exists(ci collectionInterface, key string, value interface{}) bool {
 
 	if reflect.TypeOf(ci).Kind() != reflect.Slice {
 		panic("Not allowed for " + reflect.TypeOf(ci).Kind().String())
 	}
 
-	switch reflect.TypeOf(key).Kind() {
+	switch reflect.TypeOf(value).Kind() {
 	case reflect.String:
-		 return avgString(ci, key)
+		 return existsString(ci, key, value.(string))
+	case reflect.Int:
+		 return existsInteger(ci, key, value.(int))
 	default:
 		panic("Value of type " + reflect.TypeOf(key).Kind().String() + " is not supported yet")
 	}
 }
 
-func avgString(ci collectionInterface, key string) int {
-
-	sum := 0
+func existsString(ci collectionInterface, key string, value string) bool {
 
 	for j:=0; j<reflect.ValueOf(ci).Len() ;j++  {
 
-		if reflect.ValueOf(ci).Index(j).FieldByName(key).Kind() == reflect.Int64 {
-			sum += int(reflect.ValueOf(ci).Index(j).FieldByName(key).Int())
-		} else {
-			panic("Operation not supported for " + reflect.ValueOf(ci).Index(j).FieldByName(key).Kind().String() + " values")
+		if reflect.ValueOf(ci).Index(j).FieldByName(key).String() == value  {
+			return true
 		}
 	}
 
-	return sum / reflect.ValueOf(ci).Len()
+	return false
+}
 
+func existsInteger(ci collectionInterface, key string, value int) bool {
+
+	for j:=0; j<reflect.ValueOf(ci).Len() ;j++  {
+
+		if int(reflect.ValueOf(ci).Index(j).FieldByName(key).Int()) == value  {
+			return true
+		}
+	}
+
+	return false
 }
