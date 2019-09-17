@@ -23,8 +23,20 @@ Helper functions for multidimensional arrays
         res := c.Where("name", "Dinesh").Where("age", 28).get().([]person)
        
         fmt.Println(res)
+       
         fmt.Println(c.Avg("age"))
         fmt.Println(c.Exists("age", 1000))
+        fmt.Println(c.Count())
+        fmt.Println(c.Where("name", "Dinesh").Count())
+       
+       
+        resp := c.Each(func(p interface{}) interface{} {
+            person := p.(person)
+            person.name = person.name + " ** "
+            return person
+        }).([]person)
+       
+        fmt.Println(resp)
     }
     
   
@@ -33,3 +45,6 @@ Helper functions for multidimensional arrays
       [{Dinesh 28} {Dinesh 28}]
       31
       false
+      6
+      2
+      [{Dinesh **  28} {Gilf **  32} {Richard **  20} {Erlic **  58} {Bar **  25} {Dinesh **  28}]
