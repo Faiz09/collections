@@ -26,4 +26,15 @@ func Test()  {
 
 	fmt.Println(c.Avg("age"))
 	fmt.Println(c.Exists("age", 1000))
+	fmt.Println(c.Count())
+	fmt.Println(c.Where("name", "Dinesh").Count())
+
+
+	resp := c.Each(func(p interface{}) interface{} {
+		person := p.(person)
+		person.name = person.name + " ** "
+		return person
+	}).([]person)
+
+	fmt.Println(resp)
 }
