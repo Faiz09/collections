@@ -15,10 +15,12 @@ func Test()  {
 		{name: "Richard", age:  20},
 		{name: "Erlic", age:  58},
 		{name: "Bar", age:  25},
-		{name: "Dinesh", age:  28},
+		{name: "Big Head", age:  10},
 	}
 
 	c := Collection{p}
+
+	fmt.Println(c.get())
 
 	w := c.Where("name", "Dinesh").Where("age", 28).get().([]person)
 
@@ -44,4 +46,6 @@ func Test()  {
 
 	fmt.Println(f)
 
+	fmt.Println(c.First().(person).name)
+	fmt.Println(c.Last().(person).age)
 }

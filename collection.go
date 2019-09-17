@@ -31,6 +31,14 @@ func (c Collection) Filter(f func(in interface{}) interface{}) interface{} {
 	 return methods.Filter(c.Data, f)
 }
 
+func (c Collection) First() interface{} {
+	 return methods.First(c.Data)
+}
+
+func (c Collection) Last() interface{} {
+	 return methods.Last(c.Data)
+}
+
 func (c Collection) get() interface{} {
 	return c.Data
 }
