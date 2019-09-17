@@ -20,21 +20,28 @@ func Test()  {
 
 	c := Collection{p}
 
-	res := c.Where("name", "Dinesh").Where("age", 28).get().([]person)
+	w := c.Where("name", "Dinesh").Where("age", 28).get().([]person)
 
-	fmt.Println(res)
+	fmt.Println(w)
 
 	fmt.Println(c.Avg("age"))
 	fmt.Println(c.Exists("age", 1000))
 	fmt.Println(c.Count())
 	fmt.Println(c.Where("name", "Dinesh").Count())
 
-
-	resp := c.Each(func(p interface{}) interface{} {
+	e := c.Each(func(p interface{}) interface{} {
 		person := p.(person)
 		person.name = person.name + " ** "
 		return person
 	}).([]person)
 
-	fmt.Println(resp)
+	fmt.Println(e)
+
+	f := c.Filter(func(p interface{}) interface{} {
+		person := p.(person)
+		return person.age > 30
+	}).([]person)
+
+	fmt.Println(f)
+
 }

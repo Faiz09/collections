@@ -1,7 +1,7 @@
-go collections
+go collections *Experimental
 --
 
-Helper functions for multidimensional arrays
+Helper functions for multidimensional arrays - inspired by laravel collections
 
     type person struct {
         name string
@@ -30,21 +30,30 @@ Helper functions for multidimensional arrays
         fmt.Println(c.Where("name", "Dinesh").Count())
        
        
-        resp := c.Each(func(p interface{}) interface{} {
+        e := c.Each(func(p interface{}) interface{} {
             person := p.(person)
             person.name = person.name + " ** "
             return person
         }).([]person)
-       
-        fmt.Println(resp)
+    
+        fmt.Println(e)
+    
+        f := c.Filter(func(p interface{}) interface{} {
+            person := p.(person)
+            return person.age > 30
+        }).([]person)
+    
+        fmt.Println(f)
     }
     
   
   output
-  
-      [{Dinesh 28} {Dinesh 28}]
-      31
-      false
-      6
-      2
-      [{Dinesh **  28} {Gilf **  32} {Richard **  20} {Erlic **  58} {Bar **  25} {Dinesh **  28}]
+    
+    [{Dinesh 28} {Dinesh 28}]
+    31
+    false
+    6
+    2
+    [{Dinesh **  28} {Gilf **  32} {Richard **  20} {Erlic **  58} {Bar **  25} {Dinesh **  28}]
+    [{Gilf 32} {Erlic 58}]
+

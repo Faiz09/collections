@@ -27,6 +27,10 @@ func (c Collection) Each(f func(in interface{}) interface{}) interface{} {
 	 return methods.Each(c.Data, f)
 }
 
+func (c Collection) Filter(f func(in interface{}) interface{}) interface{} {
+	 return methods.Filter(c.Data, f)
+}
+
 func (c Collection) get() interface{} {
 	return c.Data
 }
