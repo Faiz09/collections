@@ -48,20 +48,24 @@ Helper functions for multidimensional arrays - inspired by laravel collections
       
         fmt.Println(c.First().(person).name)
         fmt.Println(c.Last().(person).age)
+        
+        fmt.Println(c.GroupBy("age").get())
     }
     
   
   output
     
-    [{Dinesh 28} {Gilf 32} {Richard 20} {Erlic 58} {Bar 25} {Big Head 10}]
+    [{Dinesh 28} {Gilf 32} {Richard 20} {Erlic 20} {Bar 25} {Big Head 10}]
     [{Dinesh 28}]
-    28
+    22
     false
     6
     1
-    [{Dinesh **  28} {Gilf **  32} {Richard **  20} {Erlic **  58} {Bar **  25} {Big Head **  10}]
-    [{Gilf 32} {Erlic 58}]
+    [{Dinesh **  28} {Gilf **  32} {Richard **  20} {Erlic **  20} {Bar **  25} {Big Head **  10}]
+    [{Gilf 32}]
     Dinesh
     10
+    map[10:[{Big Head 10}] 20:[{Richard 20} {Erlic 20}] 25:[{Bar 25}] 28:[{Dinesh 28}] 32:[{Gilf 32}]]
+
 
 

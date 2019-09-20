@@ -1,6 +1,8 @@
 package collections
 
-import "github.com/Faiz09/collections/methods"
+import (
+	"github.com/Faiz09/collections/methods"
+)
 
 type Collection struct {
 	Data interface{}
@@ -37,6 +39,11 @@ func (c Collection) First() interface{} {
 
 func (c Collection) Last() interface{} {
 	 return methods.Last(c.Data)
+}
+
+func (c Collection) GroupBy(key string) Collection {
+	 c.Data = methods.GroupBy(c.Data, key)
+	 return c
 }
 
 func (c Collection) get() interface{} {
