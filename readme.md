@@ -56,6 +56,8 @@ Helper functions for multidimensional arrays - inspired by laravel collections
         for j:=0;j<=len(f) ;j++  {
             fmt.Println(m[j].(person).name)
         }
+    
+        fmt.Println(c.Sort("name").get())
     }
     
   
@@ -71,9 +73,9 @@ Helper functions for multidimensional arrays - inspired by laravel collections
     [{Gilf 32}]
     Dinesh
     10
-    [{Big Head 25} {Big Head 10}]
     Big Head
     Big Head
+    [{Big Head 25} {Big Head 10} {Dinesh 28} {Erlic 28} {Gilf 32} {Richard 20}]
 
 
 

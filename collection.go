@@ -46,6 +46,11 @@ func (c Collection) GroupBy(key string) Collection {
 	 return c
 }
 
+func (c Collection) Sort(key string) Collection {
+	 c.Data = methods.Sort(c.Data, key)
+	 return c
+}
+
 func (c Collection) get() interface{} {
 	return c.Data
 }

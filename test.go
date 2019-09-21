@@ -59,5 +59,5 @@ func Test()  {
 		fmt.Println(m[j].(person).name)
 	}
 
-
+	fmt.Println(c.Sort("name").get())
 }
