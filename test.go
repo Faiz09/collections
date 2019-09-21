@@ -15,8 +15,8 @@ func Test()  {
 		{name: "Dinesh", age:  28},
 		{name: "Gilf", age:  32},
 		{name: "Richard", age:  20},
-		{name: "Erlic", age:  20},
-		{name: "Bar", age:  25},
+		{name: "Erlic", age:  28},
+		{name: "Big Head", age:  25},
 		{name: "Big Head", age:  10},
 	}
 
@@ -51,5 +51,13 @@ func Test()  {
 	fmt.Println(c.First().(person).name)
 	fmt.Println(c.Last().(person).age)
 
-	fmt.Println(c.GroupBy("age").get())
+	res := c.GroupBy("name").get().(map[string][]interface{})
+
+	m := res["Big Head"]
+
+	for j:=0;j<=len(f) ;j++  {
+		fmt.Println(m[j].(person).name)
+	}
+
+
 }
